@@ -1,1 +1,1294 @@
-s
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Musicpal - Your Music Discovery Platform</title>
+    <meta name="description" content="Discover and play your favorite music with Musicpal. Search tracks, create playlists, and explore new music with our dark-themed, modern interface.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --background: hsl(240, 10%, 4%);
+            --foreground: hsl(0, 0%, 98%);
+            --card: hsl(240, 10%, 7%);
+            --card-foreground: hsl(0, 0%, 98%);
+            --popover: hsl(240, 10%, 7%);
+            --popover-foreground: hsl(0, 0%, 98%);
+            --primary: hsl(262, 83%, 58%);
+            --primary-foreground: hsl(0, 0%, 98%);
+            --secondary: hsl(240, 6%, 10%);
+            --secondary-foreground: hsl(0, 0%, 98%);
+            --muted: hsl(240, 4%, 16%);
+            --muted-foreground: hsl(240, 5%, 64%);
+            --accent: hsl(262, 83%, 58%);
+            --accent-foreground: hsl(0, 0%, 98%);
+            --destructive: hsl(0, 84%, 60%);
+            --destructive-foreground: hsl(0, 0%, 98%);
+            --border: hsl(240, 6%, 20%);
+            --input: hsl(240, 6%, 20%);
+            --ring: hsl(262, 83%, 58%);
+            --radius: 0.75rem;
+        }
+
+        * {
+            border-color: var(--border);
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            outline: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .btn-primary:hover {
+            background: hsl(262, 83%, 52%);
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        .btn-secondary:hover {
+            background: hsl(240, 6%, 15%);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted-foreground);
+        }
+
+        .btn-ghost:hover {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .input {
+            display: flex;
+            width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--card);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            color: var(--foreground);
+            transition: all 0.3s ease;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--ring);
+            box-shadow: 0 0 0 2px hsl(262, 83%, 58%, 0.2);
+        }
+
+        .input::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px hsl(262, 83%, 58%, 0.15);
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 20px hsl(262, 83%, 58%, 0.3);
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), hsl(290, 83%, 58%));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (min-width: 768px) {
+            .md\\:grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .space-x-2 > * + * {
+            margin-left: 0.5rem;
+        }
+
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .p-3 {
+            padding: 0.75rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .w-8 {
+            width: 2rem;
+        }
+
+        .w-12 {
+            width: 3rem;
+        }
+
+        .w-16 {
+            width: 4rem;
+        }
+
+        .w-20 {
+            width: 5rem;
+        }
+
+        .h-8 {
+            height: 2rem;
+        }
+
+        .h-12 {
+            height: 3rem;
+        }
+
+        .h-16 {
+            height: 4rem;
+        }
+
+        .h-20 {
+            height: 5rem;
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+        }
+
+        .max-w-2xl {
+            max-width: 42rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .rounded-lg {
+            border-radius: var(--radius);
+        }
+
+        .rounded-md {
+            border-radius: calc(var(--radius) - 2px);
+        }
+
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .fixed {
+            position: fixed;
+        }
+
+        .sticky {
+            position: sticky;
+        }
+
+        .top-0 {
+            top: 0;
+        }
+
+        .bottom-0 {
+            bottom: 0;
+        }
+
+        .left-0 {
+            left: 0;
+        }
+
+        .right-0 {
+            right: 0;
+        }
+
+        .z-40 {
+            z-index: 40;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+        }
+
+        .border-b {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bg-background\\/80 {
+            background: hsl(240, 10%, 4%, 0.8);
+        }
+
+        .bg-card\\/50 {
+            background: hsl(240, 10%, 7%, 0.5);
+        }
+
+        .bg-primary\\/20 {
+            background: hsl(262, 83%, 58%, 0.2);
+        }
+
+        .border-primary\\/20 {
+            border-color: hsl(262, 83%, 58%, 0.2);
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+
+        .tab-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--secondary);
+            border-radius: var(--radius);
+            padding: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-trigger {
+            padding: 0.5rem 1rem;
+            border-radius: calc(var(--radius) - 2px);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: none;
+            color: var(--muted-foreground);
+        }
+
+        .tab-trigger.active {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .pb-32 {
+            padding-bottom: 8rem;
+        }
+
+        .like-btn.liked {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary), hsl(290, 83%, 58%));
+        }
+
+        .flex-1 {
+            flex: 1 1 0%;
+        }
+
+        .min-w-0 {
+            min-width: 0px;
+        }
+
+        .object-cover {
+            object-fit: cover;
+        }
+
+        .sm\\:flex-row {
+            flex-direction: row;
+        }
+
+        @media (min-width: 640px) {
+            .sm\\:flex-row {
+                flex-direction: row;
+            }
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .song-card {
+            transition: all 0.3s ease-out;
+        }
+
+        .song-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px hsl(262, 83%, 58%, 0.15);
+        }
+
+        .icon {
+            width: 1rem;
+            height: 1rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon-lg {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .icon-xl {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // Simple state management
+        const state = {
+            username: localStorage.getItem('musicpal_username') || '',
+            hasCompletedOnboarding: localStorage.getItem('musicpal_onboarded') === 'true',
+            genres: JSON.parse(localStorage.getItem('musicpal_genres') || '[]'),
+            likedSongs: JSON.parse(localStorage.getItem('musicpal_liked_songs') || '[]'),
+            recentSongs: JSON.parse(localStorage.getItem('musicpal_recent_songs') || '[]'),
+            currentPage: 'onboarding',
+            searchQuery: '',
+            activeTab: 'discover',
+            currentTrack: null,
+            isPlaying: false,
+            trendingTracks: [],
+            searchResults: [],
+            recommendedTracks: [],
+            likedTracksData: [],
+            recentTracksData: [],
+            loading: {
+                trending: false,
+                search: false,
+                recommended: false,
+                liked: false,
+                recent: false
+            }
+        };
+
+        // Utility functions
+        function $(id) {
+            return document.getElementById(id);
+        }
+
+        function saveToStorage(key, value) {
+            localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
+        }
+
+        function formatDuration(ms) {
+            const minutes = Math.floor(ms / 60000);
+            const seconds = Math.floor((ms % 60000) / 1000);
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // API functions
+        async function apiRequest(endpoint, options = {}) {
+            const url = `/api${endpoint}`;
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                ...options
+            };
+            
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API request failed:', error);
+                return [];
+            }
+        }
+
+        async function searchTracks(query) {
+            if (!query) return [];
+            state.loading.search = true;
+            render();
+            
+            const data = await apiRequest(`/spotify/search?q=${encodeURIComponent(query)}`);
+            state.searchResults = data.tracks?.items || [];
+            state.loading.search = false;
+            render();
+        }
+
+        async function getTrendingTracks() {
+            state.loading.trending = true;
+            render();
+            
+            const tracks = await apiRequest('/spotify/trending');
+            state.trendingTracks = tracks || [];
+            state.loading.trending = false;
+            render();
+        }
+
+        async function getRecommendations() {
+            if (state.genres.length === 0) return;
+            
+            state.loading.recommended = true;
+            render();
+            
+            const tracks = await apiRequest(`/spotify/recommendations?seed_genres=${state.genres.join(',')}`);
+            state.recommendedTracks = tracks || [];
+            state.loading.recommended = false;
+            render();
+        }
+
+        async function getTracksByIds(trackIds) {
+            if (trackIds.length === 0) return [];
+            
+            const data = await apiRequest(`/spotify/tracks?ids=${trackIds.join(',')}`);
+            return data.tracks || [];
+        }
+
+        // Audio player
+        let audioElement = null;
+
+        function playTrack(track) {
+            if (!track.preview_url) {
+                console.warn('No preview URL available for this track');
+                return false;
+            }
+            
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.currentTime = 0;
+            }
+            
+            audioElement = new Audio(track.preview_url);
+            state.currentTrack = track;
+            state.isPlaying = true;
+            
+            audioElement.play().catch(error => {
+                console.error('Error playing audio:', error);
+                state.isPlaying = false;
+            });
+            
+            audioElement.addEventListener('ended', () => {
+                state.isPlaying = false;
+                render();
+            });
+            
+            // Add to recent songs
+            const filtered = state.recentSongs.filter(id => id !== track.id);
+            state.recentSongs = [track.id, ...filtered].slice(0, 50);
+            saveToStorage('musicpal_recent_songs', state.recentSongs);
+            
+            render();
+            return true;
+        }
+
+        function pauseTrack() {
+            if (audioElement) {
+                audioElement.pause();
+                state.isPlaying = false;
+                render();
+            }
+        }
+
+        function resumeTrack() {
+            if (audioElement) {
+                audioElement.play().catch(error => {
+                    console.error('Error resuming audio:', error);
+                    state.isPlaying = false;
+                });
+                state.isPlaying = true;
+                render();
+            }
+        }
+
+        function togglePlayPause() {
+            if (state.isPlaying) {
+                pauseTrack();
+            } else if (state.currentTrack) {
+                resumeTrack();
+            }
+        }
+
+        function toggleLike(trackId) {
+            if (state.likedSongs.includes(trackId)) {
+                state.likedSongs = state.likedSongs.filter(id => id !== trackId);
+            } else {
+                state.likedSongs = [...state.likedSongs, trackId];
+            }
+            saveToStorage('musicpal_liked_songs', state.likedSongs);
+            render();
+        }
+
+        // Components
+        function Icon({ name, className = 'icon' }) {
+            const icons = {
+                music: '<circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="m21 15-3-3 3-3"/><path d="m3 9 3 3-3 3"/>',
+                play: '<polygon points="5,3 19,12 5,21"/>',
+                pause: '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>',
+                heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+                search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>',
+                user: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+                'skip-back': '<polygon points="19,20 9,12 19,4"/><line x1="5" y1="19" x2="5" y2="5"/>',
+                'skip-forward': '<polygon points="5,4 15,12 5,20"/><line x1="19" y1="5" x2="19" y2="19"/>',
+                clock: '<circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>',
+                star: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>',
+                guitar: '<path d="M12 2v20"/><path d="m15.5 7.5-3-3 3-3"/><path d="m8.5 7.5 3-3-3-3"/>',
+                mic: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>',
+                volume2: '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>',
+                headphones: '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>'
+            };
+            
+            return `<svg class="${className}" viewBox="0 0 24 24">${icons[name] || ''}</svg>`;
+        }
+
+        function SongCard({ track, isLiked, isPlaying: trackIsPlaying, onLike, onPlay }) {
+            const albumImage = track.album.images[0]?.url || 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100';
+            
+            return `
+                <div class="card song-card flex items-center space-x-4" data-testid="song-card-${track.id}">
+                    <img src="${albumImage}" alt="${track.album.name} cover" class="w-16 h-16 rounded-md object-cover">
+                    
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-medium truncate" data-testid="text-song-name-${track.id}">${track.name}</h4>
+                        <p class="text-sm text-muted-foreground truncate" data-testid="text-artist-name-${track.id}">
+                            ${track.artists.map(artist => artist.name).join(', ')}
+                        </p>
+                        ${track.album.name ? `<p class="text-xs text-muted-foreground truncate">${track.album.name}</p>` : ''}
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                        <button class="btn btn-ghost ${isLiked ? 'like-btn liked' : ''}" onclick="toggleLike('${track.id}')" data-testid="button-like-${track.id}">
+                            ${Icon({ name: 'heart', className: `icon ${isLiked ? 'fill-current' : ''}` })}
+                        </button>
+                        
+                        <button class="btn btn-ghost" onclick="handlePlay('${track.id}')" data-testid="button-play-${track.id}">
+                            ${Icon({ name: trackIsPlaying ? 'pause' : 'play' })}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function LoadingSkeleton() {
+            return Array.from({length: 5}, (_, i) => `
+                <div key="${i}" class="card animate-pulse">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-muted rounded-md"></div>
+                        <div class="flex-1 space-y-2">
+                            <div class="h-4 bg-muted rounded w-1/2"></div>
+                            <div class="h-3 bg-muted rounded w-1/3"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function MusicPlayer() {
+            if (!state.currentTrack) return '';
+            
+            const track = state.currentTrack;
+            const albumImage = track.album.images[0]?.url || 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=60';
+            const isLiked = state.likedSongs.includes(track.id);
+            
+            return `
+                <div class="fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md border-b border-border p-4 z-50" data-testid="music-player">
+                    <div class="flex items-center space-x-4">
+                        <img src="${albumImage}" alt="${track.album.name} cover" class="w-12 h-12 rounded-md object-cover">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-medium text-sm truncate" data-testid="text-current-song">${track.name}</h4>
+                            <p class="text-xs text-muted-foreground truncate" data-testid="text-current-artist">
+                                ${track.artists.map(artist => artist.name).join(', ')}
+                            </p>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <button class="btn btn-ghost" data-testid="button-previous">
+                                ${Icon({ name: 'skip-back' })}
+                            </button>
+                            
+                            <button class="btn btn-primary w-10 h-10 rounded-full p-0" onclick="togglePlayPause()" data-testid="button-play-pause">
+                                ${Icon({ name: state.isPlaying ? 'pause' : 'play' })}
+                            </button>
+                            
+                            <button class="btn btn-ghost" data-testid="button-next">
+                                ${Icon({ name: 'skip-forward' })}
+                            </button>
+                            
+                            <button class="btn btn-ghost ${isLiked ? 'like-btn liked' : ''}" onclick="toggleLike('${track.id}')" data-testid="button-like-player">
+                                ${Icon({ name: 'heart', className: `icon ${isLiked ? 'fill-current' : ''}` })}
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="flex items-center space-x-2 text-xs text-muted-foreground mb-1">
+                            <span data-testid="text-current-time">0:00</span>
+                            <div class="flex-1 h-1 bg-muted rounded-full overflow-hidden">
+                                <div class="progress-bar h-full w-1/3 rounded-full"></div>
+                            </div>
+                            <span data-testid="text-duration">0:30</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Page components
+        function OnboardingPage() {
+            return `
+                <div class="min-h-screen flex items-center justify-center p-4" data-testid="onboarding-screen">
+                    <div class="max-w-md w-full space-y-8">
+                        <div class="text-center space-y-6 fade-in-up">
+                            <div class="relative">
+                                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center glow-effect">
+                                    ${Icon({ name: 'music', className: 'icon-lg text-primary-foreground' })}
+                                </div>
+                                
+                                <h1 class="text-4xl font-bold gradient-text mb-2">Musicpal</h1>
+                                <p class="text-muted-foreground text-lg">Let's get you started</p>
+                                <div class="mt-4 p-3 bg-card/50 rounded-lg border border-primary/20">
+                                    <p class="text-sm text-muted-foreground text-center">
+                                        🔒 <span class="text-primary font-medium">100% secure, no logs</span><br>
+                                        Just you and your music
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="relative">
+                                    <input type="text" placeholder="Enter your username" id="username-input" class="input w-full px-4 py-3" data-testid="input-username">
+                                </div>
+                                
+                                <button class="btn btn-primary w-full glow-effect" onclick="handleContinue()" data-testid="button-continue">
+                                    Continue
+                                </button>
+                            </div>
+
+                            <button class="btn btn-ghost text-sm underline" onclick="handleSkip()" data-testid="button-skip-onboarding">
+                                Skip and start listening
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function GenreSelectionPage() {
+            const genres = [
+                { id: 'pop', name: 'Pop', icon: 'star' },
+                { id: 'rock', name: 'Rock', icon: 'guitar' },
+                { id: 'hip-hop', name: 'Hip Hop', icon: 'mic' },
+                { id: 'electronic', name: 'Electronic', icon: 'volume2' },
+                { id: 'jazz', name: 'Jazz', icon: 'music' },
+                { id: 'classical', name: 'Classical', icon: 'headphones' }
+            ];
+            
+            return `
+                <div class="min-h-screen p-4" data-testid="genre-selection-screen">
+                    <div class="max-w-2xl mx-auto py-8">
+                        <div class="text-center mb-8 fade-in-up">
+                            <h2 class="text-3xl font-bold mb-2">Choose Your Genres</h2>
+                            <p class="text-muted-foreground">Select what you love to hear (or skip to explore)</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 fade-in-up">
+                            ${genres.map(genre => `
+                                <div class="card text-center cursor-pointer transition-all duration-300 transform hover:scale-105 ${state.genres.includes(genre.id) ? 'border-primary bg-primary/20' : ''}" 
+                                     onclick="toggleGenre('${genre.id}')" data-testid="genre-card-${genre.id}">
+                                    ${Icon({ name: genre.icon, className: 'icon-lg mx-auto mb-2 text-primary' })}
+                                    <p class="font-medium">${genre.name}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 fade-in-up">
+                            <button class="btn btn-secondary flex-1" onclick="handleSkipGenres()" data-testid="button-skip-genres">
+                                Skip for Now
+                            </button>
+                            <button class="btn btn-primary flex-1 glow-effect" onclick="handleSaveGenres()" data-testid="button-save-genres">
+                                Start Listening
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function HomePage() {
+            const displayTracks = state.searchQuery ? state.searchResults : state.trendingTracks;
+            const isLoading = state.searchQuery ? state.loading.search : state.loading.trending;
+            
+            return `
+                <div class="min-h-screen pb-32" data-testid="home-screen">
+                    <!-- Header -->
+                    <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
+                        <div class="px-4 py-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                                        ${Icon({ name: 'music' })}
+                                    </div>
+                                    <h1 class="text-xl font-bold">Musicpal</h1>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="text-sm text-muted-foreground" data-testid="text-welcome">
+                                        Welcome, ${state.username}
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                        ${Icon({ name: 'user' })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Search -->
+                    <div class="p-4">
+                        <div class="relative max-w-md mx-auto">
+                            <input type="text" placeholder="Search for songs, artists..." value="${state.searchQuery}" 
+                                   oninput="handleSearch(this.value)" class="input w-full pl-10 pr-4 py-3" data-testid="input-search">
+                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+                                ${Icon({ name: 'search' })}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="px-4">
+                        <div class="w-full">
+                            <div class="tab-list">
+                                <button class="tab-trigger ${state.activeTab === 'discover' ? 'active' : ''}" onclick="setActiveTab('discover')">
+                                    Discover
+                                </button>
+                                <button class="tab-trigger ${state.activeTab === 'liked' ? 'active' : ''}" onclick="setActiveTab('liked')">
+                                    Liked Songs
+                                </button>
+                                <button class="tab-trigger ${state.activeTab === 'recent' ? 'active' : ''}" onclick="setActiveTab('recent')">
+                                    Recent
+                                </button>
+                            </div>
+
+                            ${state.activeTab === 'discover' ? `
+                                <div class="space-y-8">
+                                    ${state.searchQuery ? `
+                                        <div>
+                                            <h3 class="text-xl font-semibold mb-4">Search Results</h3>
+                                            ${isLoading ? LoadingSkeleton() : 
+                                              displayTracks.length === 0 ? `
+                                                <div class="text-center py-8">
+                                                    ${Icon({ name: 'search', className: 'icon-xl mx-auto mb-4 text-muted-foreground' })}
+                                                    <p class="text-muted-foreground">No results found for "${state.searchQuery}"</p>
+                                                </div>
+                                              ` : `
+                                                <div class="space-y-3">
+                                                    ${displayTracks.map(track => SongCard({
+                                                        track,
+                                                        isLiked: state.likedSongs.includes(track.id),
+                                                        isPlaying: state.currentTrack?.id === track.id && state.isPlaying,
+                                                        onLike: () => toggleLike(track.id),
+                                                        onPlay: () => playTrack(track)
+                                                    })).join('')}
+                                                </div>
+                                              `
+                                            }
+                                        </div>
+                                    ` : `
+                                        <div>
+                                            <h3 class="text-xl font-semibold mb-4">Trending Now</h3>
+                                            ${state.loading.trending ? LoadingSkeleton() : 
+                                              state.trendingTracks.length === 0 ? `
+                                                <div class="text-center py-8">
+                                                    ${Icon({ name: 'music', className: 'icon-xl mx-auto mb-4 text-muted-foreground' })}
+                                                    <p class="text-muted-foreground">Unable to load trending songs. Please check your connection.</p>
+                                                </div>
+                                              ` : `
+                                                <div class="space-y-3">
+                                                    ${state.trendingTracks.slice(0, 10).map(track => SongCard({
+                                                        track,
+                                                        isLiked: state.likedSongs.includes(track.id),
+                                                        isPlaying: state.currentTrack?.id === track.id && state.isPlaying,
+                                                        onLike: () => toggleLike(track.id),
+                                                        onPlay: () => playTrack(track)
+                                                    })).join('')}
+                                                </div>
+                                              `
+                                            }
+                                        </div>
+
+                                        ${state.genres.length > 0 ? `
+                                            <div>
+                                                <h3 class="text-xl font-semibold mb-4">Based on Your Genres</h3>
+                                                ${state.loading.recommended ? LoadingSkeleton() : 
+                                                  state.recommendedTracks.length === 0 ? `
+                                                    <div class="text-center py-8">
+                                                        ${Icon({ name: 'music', className: 'icon-xl mx-auto mb-4 text-muted-foreground' })}
+                                                        <p class="text-muted-foreground">Unable to load recommendations. Please try again later.</p>
+                                                    </div>
+                                                  ` : `
+                                                    <div class="space-y-3">
+                                                        ${state.recommendedTracks.slice(0, 10).map(track => SongCard({
+                                                            track,
+                                                            isLiked: state.likedSongs.includes(track.id),
+                                                            isPlaying: state.currentTrack?.id === track.id && state.isPlaying,
+                                                            onLike: () => toggleLike(track.id),
+                                                            onPlay: () => playTrack(track)
+                                                        })).join('')}
+                                                    </div>
+                                                  `
+                                                }
+                                            </div>
+                                        ` : ''}
+                                    `}
+                                </div>
+                            ` : state.activeTab === 'liked' ? `
+                                <div class="text-center py-8">
+                                    ${Icon({ name: 'heart', className: 'icon-xl mx-auto mb-4 text-muted-foreground' })}
+                                    <h3 class="text-xl font-semibold mb-2">Your Liked Songs</h3>
+                                    <p class="text-muted-foreground mb-6">Songs you love will appear here</p>
+                                    
+                                    ${state.likedSongs.length === 0 ? `
+                                        <p class="text-muted-foreground">No liked songs yet. Start exploring!</p>
+                                    ` : state.loading.liked ? LoadingSkeleton() : `
+                                        <div class="space-y-3">
+                                            ${state.likedTracksData.map(track => SongCard({
+                                                track,
+                                                isLiked: true,
+                                                isPlaying: state.currentTrack?.id === track.id && state.isPlaying,
+                                                onLike: () => toggleLike(track.id),
+                                                onPlay: () => playTrack(track)
+                                            })).join('')}
+                                        </div>
+                                    `}
+                                </div>
+                            ` : `
+                                <div class="text-center py-8">
+                                    ${Icon({ name: 'clock', className: 'icon-xl mx-auto mb-4 text-muted-foreground' })}
+                                    <h3 class="text-xl font-semibold mb-2">Recently Played</h3>
+                                    <p class="text-muted-foreground mb-6">Your recent listening history</p>
+                                    
+                                    ${state.recentSongs.length === 0 ? `
+                                        <p class="text-muted-foreground">No recent songs yet. Start listening!</p>
+                                    ` : state.loading.recent ? LoadingSkeleton() : `
+                                        <div class="space-y-3">
+                                            ${state.recentTracksData.map(track => SongCard({
+                                                track,
+                                                isLiked: state.likedSongs.includes(track.id),
+                                                isPlaying: state.currentTrack?.id === track.id && state.isPlaying,
+                                                onLike: () => toggleLike(track.id),
+                                                onPlay: () => playTrack(track)
+                                            })).join('')}
+                                        </div>
+                                    `}
+                                </div>
+                            `}
+                        </div>
+                    </div>
+
+                    ${MusicPlayer()}
+                </div>
+            `;
+        }
+
+        // Event handlers
+        function handleContinue() {
+            const usernameInput = $('username-input');
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+            
+            state.username = username;
+            saveToStorage('musicpal_username', username);
+            state.currentPage = 'genres';
+            render();
+        }
+
+        function handleSkip() {
+            const usernameInput = $('username-input');
+            const username = usernameInput?.value.trim();
+            
+            if (username) {
+                state.username = username;
+                saveToStorage('musicpal_username', username);
+            } else {
+                state.username = 'Music Lover';
+                saveToStorage('musicpal_username', 'Music Lover');
+            }
+            
+            state.hasCompletedOnboarding = true;
+            saveToStorage('musicpal_onboarded', 'true');
+            state.currentPage = 'home';
+            initializeHome();
+            render();
+        }
+
+        function toggleGenre(genreId) {
+            if (state.genres.includes(genreId)) {
+                state.genres = state.genres.filter(g => g !== genreId);
+            } else {
+                state.genres = [...state.genres, genreId];
+            }
+            render();
+        }
+
+        function handleSaveGenres() {
+            saveToStorage('musicpal_genres', state.genres);
+            state.hasCompletedOnboarding = true;
+            saveToStorage('musicpal_onboarded', 'true');
+            state.currentPage = 'home';
+            initializeHome();
+            render();
+        }
+
+        function handleSkipGenres() {
+            state.hasCompletedOnboarding = true;
+            saveToStorage('musicpal_onboarded', 'true');
+            state.currentPage = 'home';
+            initializeHome();
+            render();
+        }
+
+        function handleSearch(query) {
+            state.searchQuery = query;
+            if (query) {
+                searchTracks(query);
+            } else {
+                state.searchResults = [];
+                render();
+            }
+        }
+
+        function setActiveTab(tab) {
+            state.activeTab = tab;
+            
+            if (tab === 'liked' && state.likedSongs.length > 0 && state.likedTracksData.length === 0) {
+                state.loading.liked = true;
+                render();
+                getTracksByIds(state.likedSongs).then(tracks => {
+                    state.likedTracksData = tracks;
+                    state.loading.liked = false;
+                    render();
+                });
+            }
+            
+            if (tab === 'recent' && state.recentSongs.length > 0 && state.recentTracksData.length === 0) {
+                state.loading.recent = true;
+                render();
+                getTracksByIds(state.recentSongs).then(tracks => {
+                    state.recentTracksData = tracks;
+                    state.loading.recent = false;
+                    render();
+                });
+            }
+            
+            render();
+        }
+
+        function handlePlay(trackId) {
+            const allTracks = [...state.trendingTracks, ...state.searchResults, ...state.recommendedTracks, ...state.likedTracksData, ...state.recentTracksData];
+            const track = allTracks.find(t => t.id === trackId);
+            
+            if (track) {
+                if (state.currentTrack?.id === trackId && state.isPlaying) {
+                    pauseTrack();
+                } else {
+                    playTrack(track);
+                }
+            }
+        }
+
+        function initializeHome() {
+            getTrendingTracks();
+            if (state.genres.length > 0) {
+                getRecommendations();
+            }
+        }
+
+        // Router
+        function determineCurrentPage() {
+            if (state.username && state.hasCompletedOnboarding) {
+                return 'home';
+            } else if (state.username && !state.hasCompletedOnboarding) {
+                return 'genres';
+            } else {
+                return 'onboarding';
+            }
+        }
+
+        // Render function
+        function render() {
+            const app = $('app');
+            state.currentPage = determineCurrentPage();
+            
+            switch (state.currentPage) {
+                case 'onboarding':
+                    app.innerHTML = OnboardingPage();
+                    break;
+                case 'genres':
+                    app.innerHTML = GenreSelectionPage();
+                    break;
+                case 'home':
+                    app.innerHTML = HomePage();
+                    break;
+                default:
+                    app.innerHTML = OnboardingPage();
+            }
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            // Force dark mode
+            document.documentElement.classList.add('dark');
+            
+            // Initialize state from localStorage
+            state.username = localStorage.getItem('musicpal_username') || '';
+            state.hasCompletedOnboarding = localStorage.getItem('musicpal_onboarded') === 'true';
+            state.genres = JSON.parse(localStorage.getItem('musicpal_genres') || '[]');
+            state.likedSongs = JSON.parse(localStorage.getItem('musicpal_liked_songs') || '[]');
+            state.recentSongs = JSON.parse(localStorage.getItem('musicpal_recent_songs') || '[]');
+            
+            // Determine initial page and render
+            state.currentPage = determineCurrentPage();
+            
+            if (state.currentPage === 'home') {
+                initializeHome();
+            }
+            
+            render();
+        });
+    </script>
+</body>
+</html>
